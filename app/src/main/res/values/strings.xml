@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Rick And Morty</string>
+    <string name="characters">Characters</string>
+    <string name="locations">Locations</string>
+    <string name="episodes">Episodes</string>
+    <string name="picture_of_the_character">Picture of the character</string>
+    <string name="species_label">Вид:</string>
+    <string name="status_label">Статус:</string>
+    <string name="gender_label">Пол:</string>
+    <string name="episode_name">Название:</string>
+    <string name="episode">Эпизод:</string>
+    <string name="episode_air_date">Релиз:</string>
+    <string name="location_type">Тип:</string>
+    <string name="dimension">Измерение:</string>
+    <string name="character_origin">Происхождение:</string>
+    <string name="character_location">Локация:</string>
+    <string name="episodes_with_the_character">Эпизоды с этим персонажем:</string>
+    <string name="characters_of_the_episode">Персонажи в этом эпизоде:</string>
+    <string name="residents_in_the_location">Резиденты этой локации:</string>
+    <string name="rick_and_morty_splash_screen_picture">Rick and Morty splash screen picture</string>
+    <string name="character_type">Тип:</string>
+    <string name="filters">Filters</string>
+    <string name="filter_location_dimension">Измерение:</string>
+    <string name="filter_location_type">Тип локации:</string>
+    <string name="filter_options_for_characters">Опции фильтрации для персонажей:</string>
+    <string name="filter_character_name">Имя персонажа:</string>
+    <string name="character_status">Статус персонажа:</string>
+    <string name="filter_character_species">Вид:</string>
+    <string name="filter_character_type">Тип персонажа:</string>
+    <string name="filter_character_gender">Пол персонажа:</string>
+    <string name="filter_options_for_locations">Опции фильтрации для локаций</string>
+    <string name="filter_location_name">Имя локации:</string>
+    <string name="filter_options_for_episodes">Опции фильтрации для эпизодов:</string>
+    <string name="filter_episode_name">Имя эпизода:</string>
+    <string name="filter_episode_code">Код эпизода:</string>
+    <string name="apply_filters">Фильтровать</string>
+    <string name="not_enough_data_downloaded">Not enough data downloaded</string>
+    <string name="exit">Вернуться назад</string>
+
+    <string-array name="character_status">
+        <item>All statuses</item>
+        <item>alive</item>
+        <item>dead</item>
+        <item>unknown</item>
+    </string-array>
+
+    <string-array name="character_gender">
+        <item>All genders</item>
+        <item>female</item>
+        <item>male</item>
+        <item>genderless</item>
+        <item>unknown</item>
+    </string-array>
+</resources>

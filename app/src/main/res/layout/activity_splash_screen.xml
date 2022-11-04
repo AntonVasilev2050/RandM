@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    android:backgroundTint="#F7F7F7"
+    tools:context=".presentation.activity.SplashScreenActivity">
+
+    <ImageView
+        android:id="@+id/imageViewRickAndMorty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@color/gray_unchecked"
+        android:contentDescription="@string/rick_and_morty_splash_screen_picture"
+        android:src="@drawable/rickandmorty" />
+
+</RelativeLayout>

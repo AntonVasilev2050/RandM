@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutCharacterDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="2dp">
+
+    <ImageView
+        android:id="@+id/imageViewCharacterDetails"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/picture_of_the_character"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsName"
+        tools:ignore="ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Character Name" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCharacterDetails"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsName"
+        tools:text="Human" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsStatusLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/status_label"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCharacterDetails"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsTypeLabel" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCharacterDetailsStatusLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCharacterDetailsStatusLabel"
+        tools:text="Alive" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsGenderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/gender_label"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCharacterDetails"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsStatusLabel" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCharacterDetailsGenderLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCharacterDetailsGenderLabel"
+        tools:text="Male" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsOrigin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/teal_dark"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCharacterDetailsOriginLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCharacterDetailsOriginLabel"
+        tools:text="Earth" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsOriginLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/character_origin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCharacterDetails" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsLocationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/character_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsOriginLabel" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/teal_dark"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCharacterDetailsLocationLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCharacterDetailsLocationLabel"
+        tools:text="Earth" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCharacterDetailsEpisodes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsEpisodesLabel"
+        tools:listitem="@layout/item_episode" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsEpisodesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/episodes_with_the_character"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsLocationLabel" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsTypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/character_type"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCharacterDetails"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCharacterDetailsSpecies" />
+
+    <TextView
+        android:id="@+id/textViewCharacterDetailsType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Genetic experiment"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCharacterDetailsTypeLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCharacterDetailsTypeLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
