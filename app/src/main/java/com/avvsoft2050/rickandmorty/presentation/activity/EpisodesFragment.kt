@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avvsoft2050.rickandmorty.R
 import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion.APP_SETTINGS
 import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion.APP_SETTINGS_EPISODE_PAGES
@@ -34,7 +35,7 @@ class EpisodesFragment : Fragment() {
     private var episodePage = 1
     private var episodeLastPage = 3
     private lateinit var progressBar: ProgressBar
-    private lateinit var progressBarTop: ProgressBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var adapter: EpisodesAdapter
     private var dataLoaded = false
 
@@ -51,7 +52,7 @@ class EpisodesFragment : Fragment() {
             episodePage = preferences.getInt(APP_SETTINGS_EPISODE_PAGES, 1)
         }
         progressBar = binding.progressBarEpisodes
-        progressBarTop = binding.progressBarEpisodesTop
+        swipeRefresh = binding.swipeRefreshEpisodes
         adapter = EpisodesAdapter(
             onClickAction = {
                 showEpisodeDetailsFragment(it)
@@ -77,15 +78,15 @@ class EpisodesFragment : Fragment() {
                 if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                     scrollReachedBottom()
                 }
-                if (scrollY == 0) {
-                    progressBarTop.visibility = View.VISIBLE
-                    episodeViewModel.loadEpisodeData(
-                        episodePage.toString(),
-                        episodeName = filterEpisodeName,
-                        episodeCode = filterEpisodeCode
-                    )
-                }
             })
+        swipeRefresh.setOnRefreshListener {
+            episodeViewModel.loadEpisodeData(
+                episodePage.toString(),
+                episodeName = filterEpisodeName,
+                episodeCode = filterEpisodeCode
+            )
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun showEpisodeDetailsFragment(episodeResult: EpisodeResult) {
@@ -118,7 +119,7 @@ class EpisodesFragment : Fragment() {
             progressBar.visibility = View.GONE
             Toast.makeText(
                 context,
-                "No more episodes available",
+                getString(R.string.no_more_episodes_available),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -133,7 +134,6 @@ class EpisodesFragment : Fragment() {
         episodeViewModel.episodeResults.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
-                progressBarTop.visibility = View.GONE
             }
         }
     }

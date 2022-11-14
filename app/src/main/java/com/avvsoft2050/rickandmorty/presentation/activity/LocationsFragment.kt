@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avvsoft2050.rickandmorty.R
 import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion.APP_SETTINGS
 import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion.APP_SETTINGS_LOCATION_PAGES
@@ -35,7 +36,7 @@ class LocationsFragment : Fragment() {
     private var locationPage = 1
     private var locationLastPage = 7
     private lateinit var progressBar: ProgressBar
-    private lateinit var progressBarTop: ProgressBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var adapter: LocationsAdapter
     private var dataLoaded = false
 
@@ -52,7 +53,7 @@ class LocationsFragment : Fragment() {
             locationPage = preferences.getInt(APP_SETTINGS_LOCATION_PAGES, 1)
         }
         progressBar = binding.progressBarLocations
-        progressBarTop = binding.progressBarLocationsTop
+        swipeRefresh = binding.swipeRefreshLocations
         adapter = LocationsAdapter(
             onClickAction = {
                 showLocationDetailsFragment(it)
@@ -79,16 +80,16 @@ class LocationsFragment : Fragment() {
                 if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                     scrollReachedBottom()
                 }
-                if (scrollY == 0) {
-                    progressBarTop.visibility = View.VISIBLE
-                    locationViewModel.loadLocationData(
-                        locationPage = locationPage.toString(),
-                        locationName = filterLocationName,
-                        locationType = filterLocationType,
-                        locationDimension = filterLocationDimension
-                    )
-                }
             })
+        swipeRefresh.setOnRefreshListener {
+            locationViewModel.loadLocationData(
+                locationPage = locationPage.toString(),
+                locationName = filterLocationName,
+                locationType = filterLocationType,
+                locationDimension = filterLocationDimension
+            )
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun showLocationDetailsFragment(locationResult: LocationResult) {
@@ -122,7 +123,7 @@ class LocationsFragment : Fragment() {
             progressBar.visibility = View.GONE
             Toast.makeText(
                 context,
-                "No more locations available",
+                getString(R.string.no_more_locations_available),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -137,7 +138,6 @@ class LocationsFragment : Fragment() {
         locationViewModel.locationResult.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
-                progressBarTop.visibility = View.GONE
             }
         }
     }

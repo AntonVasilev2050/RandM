@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avvsoft2050.rickandmorty.R
 import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion.APP_SETTINGS
 import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion.APP_SETTINGS_CHARACTER_PAGES
@@ -37,7 +38,7 @@ class CharactersFragment : Fragment() {
     private var characterPage = 1
     private var characterLastPage = 42
     private lateinit var progressBar: ProgressBar
-    private lateinit var progressBarTop: ProgressBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var adapter: CharactersAdapter
     private var dataLoaded = false
 
@@ -54,12 +55,11 @@ class CharactersFragment : Fragment() {
             characterPage = preferences.getInt(APP_SETTINGS_CHARACTER_PAGES, 1)
         }
         progressBar = binding.progressBarCharacters
-        progressBarTop = binding.progressBarCharactersTop
+        swipeRefresh = binding.swipeRefreshCharacters
         adapter = CharactersAdapter(
             onClickAction = {
                 showCharacterDetailsFragment(it)
             }
-
         )
         binding.recyclerViewCharacters.adapter = adapter
         setupActions()
@@ -75,25 +75,27 @@ class CharactersFragment : Fragment() {
                 filterCharacterStatus,
                 filterCharacterSpecies,
                 filterCharacterType,
-                filterCharacterGender)
+                filterCharacterGender
+            )
             dataLoaded = true
         }
         binding.scrollViewCharacters.setOnScrollChangeListener(
-            NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
                 if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                     loadNextPageOfCharacters()
                 }
-                if (scrollY == 0) {
-                    progressBarTop.visibility = View.VISIBLE
-                    characterViewModel.loadCharacterData(
-                        characterPage.toString(),
-                        filterCharacterName,
-                        filterCharacterStatus,
-                        filterCharacterSpecies,
-                        filterCharacterType,
-                        filterCharacterGender)
-                }
             })
+        swipeRefresh.setOnRefreshListener {
+            characterViewModel.loadCharacterData(
+                characterPage.toString(),
+                filterCharacterName,
+                filterCharacterStatus,
+                filterCharacterSpecies,
+                filterCharacterType,
+                filterCharacterGender
+            )
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun showCharacterDetailsFragment(characterResult: CharacterResult) {
@@ -129,7 +131,7 @@ class CharactersFragment : Fragment() {
             progressBar.visibility = View.GONE
             Toast.makeText(
                 context,
-                "No more characters available",
+                getString(R.string.no_more_characters_available),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -146,7 +148,6 @@ class CharactersFragment : Fragment() {
         characterViewModel.characterResults.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
-                progressBarTop.visibility = View.GONE
             }
         }
     }

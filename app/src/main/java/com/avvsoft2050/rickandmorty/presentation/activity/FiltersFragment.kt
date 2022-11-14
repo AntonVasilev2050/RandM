@@ -35,8 +35,7 @@ import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion
 import com.avvsoft2050.rickandmorty.presentation.activity.MainActivity.Companion.filterLocationType
 import com.avvsoft2050.rickandmorty.databinding.FragmentFiltersBinding
 import com.avvsoft2050.rickandmorty.presentation.viewmodel.FiltersViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class FiltersFragment : Fragment() {
 
@@ -62,28 +61,28 @@ class FiltersFragment : Fragment() {
                 filtersViewModel.deleteCharacterResult()
                 filtersViewModel.deleteLocationResult()
                 filtersViewModel.deleteEpisodeResult()
+                filtersViewModel.loadCharacterData(
+                    characterPage = "1",
+                    characterName = filterCharacterName,
+                    characterStatus = filterCharacterStatus,
+                    characterSpecies = filterCharacterSpecies,
+                    characterType = filterCharacterType,
+                    characterGender = filterCharacterGender
+                )
+                filtersViewModel.loadLocationData(
+                    locationPage = "1",
+                    locationName = filterLocationName,
+                    locationType = filterLocationType,
+                    locationDimension = filterLocationDimension
+                )
+                filtersViewModel.loadEpisodeData(
+                    episodePage = "1",
+                    episodeName = filterEpisodeName,
+                    episodeCode = filterEpisodeCode
+                )
+                delay(500)
+                parentFragmentManager.popBackStack()
             }
-            filtersViewModel.loadCharacterData(
-                characterPage = "1",
-                characterName = filterCharacterName,
-                characterStatus = filterCharacterStatus,
-                characterSpecies = filterCharacterSpecies,
-                characterType = filterCharacterType,
-                characterGender = filterCharacterGender
-            )
-            filtersViewModel.loadLocationData(
-                locationPage = "1",
-                locationName = filterLocationName,
-                locationType = filterLocationType,
-                locationDimension = filterLocationDimension
-            )
-            filtersViewModel.loadEpisodeData(
-                episodePage = "1",
-                episodeName = filterEpisodeName,
-                episodeCode = filterEpisodeCode
-            )
-            Thread.sleep(300)
-            parentFragmentManager.popBackStack()
         }
         binding.buttonCancel.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -94,17 +93,17 @@ class FiltersFragment : Fragment() {
     private fun saveFiltersIntoPreferences() {
         filterCharacterName = binding.editTextFilterCharacterName.text.toString()
         val characterSelectedStatus = binding.spinnerFilterCharacterStatus.selectedItem.toString()
-        if (characterSelectedStatus == "All statuses"){
+        if (characterSelectedStatus == "All statuses") {
             filterCharacterStatus = ""
-        }else{
+        } else {
             filterCharacterStatus = characterSelectedStatus
         }
         filterCharacterSpecies = binding.editTextFilterCharacterSpecies.text.toString()
         filterCharacterType = binding.editTextFilterCharacterType.text.toString()
         val characterSelectedGender = binding.spinnerFilterCharacterGender.selectedItem.toString()
-        if (characterSelectedGender == "All genders"){
+        if (characterSelectedGender == "All genders") {
             filterCharacterGender = ""
-        }else{
+        } else {
             filterCharacterGender = characterSelectedGender
         }
         filterLocationName = binding.editTextFilterLocationName.text.toString()

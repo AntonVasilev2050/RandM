@@ -15,6 +15,6 @@
         android:layout_centerInParent="true"
         android:backgroundTint="@color/gray_unchecked"
         android:contentDescription="@string/rick_and_morty_splash_screen_picture"
-        android:src="@drawable/rickandmorty" />
+        android:src="@drawable/r_and_m" />
 
 </RelativeLayout>

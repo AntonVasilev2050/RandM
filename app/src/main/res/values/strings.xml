@@ -35,7 +35,10 @@
     <string name="filter_episode_code">Код эпизода:</string>
     <string name="apply_filters">Фильтровать</string>
     <string name="not_enough_data_downloaded">Not enough data downloaded</string>
-    <string name="exit">Вернуться назад</string>
+    <string name="exit">Отмена</string>
+    <string name="no_more_characters_available">No more characters available</string>
+    <string name="no_more_episodes_available">No more episodes available</string>
+    <string name="no_more_locations_available">No more locations available</string>
 
     <string-array name="character_status">
         <item>All statuses</item>
